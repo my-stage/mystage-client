@@ -11,9 +11,6 @@ import Divider from '@material-ui/core/Divider';
 import IconButton from '@material-ui/core/IconButton';
 import Badge from '@material-ui/core/Badge';
 import Container from '@material-ui/core/Container';
-import MenuIcon from '@material-ui/icons/Menu';
-import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
-import NotificationsIcon from '@material-ui/icons/Notifications';
 import { mainListItems, managementListItems } from './routing/listItems';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import Dashboard from './pages/Dashboard';
@@ -23,6 +20,13 @@ import UsersMgmt from './pages/UsersMgmt';
 import ShowsMgmt from './pages/ShowsMgmt';
 import EventsMgmt from './pages/EventsMgmt';
 import ListSubheader from "@material-ui/core/ListSubheader";
+import {
+  Menu as MenuIcon,
+  ChevronLeft as ChevronLeftIcon,
+  MoreVert as MoreVertIcon,
+  Notifications as NotificationsIcon,
+  AccountCircle as AccountIcon
+} from '@material-ui/icons';
 
 const drawerWidth = 240;
 
@@ -130,10 +134,23 @@ export default function App() {
             <Typography component="h1" variant="h6" color="inherit" noWrap className={classes.title}>
               myStage
             </Typography>
+            <IconButton>
+              <MoreVertIcon />
+            </IconButton>
             <IconButton color="inherit">
               <Badge badgeContent={0} color="secondary">
                 <NotificationsIcon />
               </Badge>
+            </IconButton>
+            <IconButton
+                edge="end"
+                aria-label="account of current user"
+                // aria-controls={menuId}
+                aria-haspopup="true"
+                // onClick={handleProfileMenuOpen}
+                color="inherit"
+            >
+              <AccountIcon />
             </IconButton>
           </Toolbar>
         </AppBar>
