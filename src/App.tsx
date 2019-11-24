@@ -136,7 +136,7 @@ export default function App() {
             <Typography component="h1" variant="h6" color="inherit" noWrap className={classes.title}>
               myStage
             </Typography>
-            <IconButton>
+            <IconButton color="inherit">
               <MoreVertIcon />
             </IconButton>
             <IconButton color="inherit">
