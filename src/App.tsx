@@ -156,10 +156,10 @@ export default function Dashboard() {
               <Route path="/notimplemented">
                 <h1>Not Implemented!</h1>
               </Route>
-              <Route exact path="/users" component={Users} />
-              <Route path="/shows" component={Shows} />
-              <Route path="/events" component={Events} />
-              <Route path="/" component={Home} />
+              <Route exact path="/users"><Users /></Route>
+              <Route path="/shows"><Shows /></Route>
+              <Route path="/events"><Events /></Route>
+              <Route path="/"><Home /></Route>
             </Switch>
           </Container>
         </main>
