@@ -1,26 +1,27 @@
 import React from 'react';
 import ListSubheader from '@material-ui/core/ListSubheader';
-import PeopleIcon from '@material-ui/icons/People';
-import AssignmentIcon from '@material-ui/icons/Assignment';
 import ListItemLink from './ListItemLink';
-import HomeIcon from '@material-ui/icons/Home';
-import EventIcon from '@material-ui/icons/Event';
-import MovieIcon from '@material-ui/icons/Movie';
+import {
+    Dashboard as DashboardIcon,
+    QueueMusic as AudioPlayerIcon,
+    Event as EventsIcon,
+    People as UsersMgmtIcon,
+    MovieFilter as ShowsMgmtIcon,
+    EventNote as EventsMgmtIcon,
+} from '@material-ui/icons';
 
 export const mainListItems = (
-  <div>
-    <ListItemLink to="/" primary="Home" icon={<HomeIcon />} />
-    <ListItemLink to="/users" primary="Users" icon={<PeopleIcon />} />
-    <ListItemLink to="/shows" primary="Shows" icon={<MovieIcon />} />
-    <ListItemLink to="/events" primary="Events" icon={<EventIcon />} />
-  </div>
+  <>
+    <ListItemLink to="/" primary="Dashboard" icon={<DashboardIcon />} />
+    <ListItemLink to="/audio-player" primary="Audio Player" icon={<AudioPlayerIcon />} />
+    <ListItemLink to="/events" primary="Events" icon={<EventsIcon />} />
+  </>
 );
 
-export const secondaryListItems = (
-  <div>
-    <ListSubheader inset>Saved reports</ListSubheader>
-    <ListItemLink to="/notimplemented" primary="Current month" icon={<AssignmentIcon />} />
-    <ListItemLink to="/notimplemented" primary="Last quarter" icon={<AssignmentIcon />} />
-    <ListItemLink to="/notimplemented" primary="Year-end sale" icon={<AssignmentIcon />} />
-  </div>
+export const managementListItems = (
+  <>
+    <ListItemLink to="/mgmt/shows" primary="Shows" icon={<ShowsMgmtIcon />} />
+    <ListItemLink to="/mgmt/events" primary="Events" icon={<EventsMgmtIcon />} />
+      <ListItemLink to="/mgmt/users" primary="Users" icon={<UsersMgmtIcon />} />
+  </>
 );

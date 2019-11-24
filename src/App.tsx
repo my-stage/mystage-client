@@ -14,12 +14,15 @@ import Container from '@material-ui/core/Container';
 import MenuIcon from '@material-ui/icons/Menu';
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import NotificationsIcon from '@material-ui/icons/Notifications';
-import { mainListItems, secondaryListItems } from './routing/listItems';
+import { mainListItems, managementListItems } from './routing/listItems';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
-import Home from './pages/Home';
-import Users from './pages/Users';
-import Shows from './pages/Shows';
+import Dashboard from './pages/Dashboard';
+import AudioPlayer from './pages/AudioPlayer';
 import Events from './pages/Events';
+import UsersMgmt from './pages/UsersMgmt';
+import ShowsMgmt from './pages/ShowsMgmt';
+import EventsMgmt from './pages/EventsMgmt';
+import ListSubheader from "@material-ui/core/ListSubheader";
 
 const drawerWidth = 240;
 
@@ -99,7 +102,7 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-export default function Dashboard() {
+export default function App() {
   const classes = useStyles();
   const [open, setOpen] = React.useState(true);
   const handleDrawerOpen = () => {
@@ -128,7 +131,7 @@ export default function Dashboard() {
               myStage
             </Typography>
             <IconButton color="inherit">
-              <Badge badgeContent={4} color="secondary">
+              <Badge badgeContent={0} color="secondary">
                 <NotificationsIcon />
               </Badge>
             </IconButton>
@@ -145,21 +148,23 @@ export default function Dashboard() {
             </IconButton>
           </div>
           <Divider />
-          <List>{mainListItems}</List>
-          <Divider />
-          <List>{secondaryListItems}</List>
+          <List>
+            {mainListItems}
+            <Divider />
+            <ListSubheader inset>Verwaltung</ListSubheader>
+            {managementListItems}
+          </List>
         </Drawer>
         <main className={classes.content}>
           <div className={classes.appBarSpacer} />
           <Container maxWidth="lg" className={classes.container}>
             <Switch>
-              <Route path="/notimplemented">
-                <h1>Not Implemented!</h1>
-              </Route>
-              <Route exact path="/users"><Users /></Route>
-              <Route path="/shows"><Shows /></Route>
-              <Route path="/events"><Events /></Route>
-              <Route path="/"><Home /></Route>
+              <Route exact path="/"><Dashboard /></Route>
+              <Route exact path="/audio-player"><AudioPlayer /></Route>
+              <Route exact path="/events"><Events /></Route>
+              <Route exact path="/mgmt/shows"><ShowsMgmt /></Route>
+              <Route exact path="/mgmt/events"><EventsMgmt /></Route>
+              <Route exact path="/mgmt/users"><UsersMgmt /></Route>
             </Switch>
           </Container>
         </main>
