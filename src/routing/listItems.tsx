@@ -1,6 +1,4 @@
 import React from 'react';
-import ListSubheader from '@material-ui/core/ListSubheader';
-import ListItemLink from './ListItemLink';
 import {
   Dashboard as DashboardIcon,
   QueueMusic as AudioPlayerIcon,
@@ -9,6 +7,7 @@ import {
   MovieFilter as ShowsMgmtIcon,
   EventNote as EventsMgmtIcon,
 } from '@material-ui/icons';
+import ListItemLink from './ListItemLink';
 
 export const mainListItems = (
   <>

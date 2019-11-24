@@ -1,6 +1,5 @@
 import React from 'react';
 
-
 interface ListItemLinkProps {
   icon?: React.ReactElement;
   primary: string;
