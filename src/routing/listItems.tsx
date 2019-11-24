@@ -1,6 +1,5 @@
 import React from 'react';
 import ListSubheader from '@material-ui/core/ListSubheader';
-import ShoppingCartIcon from '@material-ui/icons/ShoppingCart';
 import PeopleIcon from '@material-ui/icons/People';
 import AssignmentIcon from '@material-ui/icons/Assignment';
 import ListItemLink from './ListItemLink';

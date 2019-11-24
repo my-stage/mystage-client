@@ -8,8 +8,7 @@ import { Link as RouterLink, LinkProps as RouterLinkProps } from 'react-router-d
 export default function(props: ListItemLinkProps) {
   const { icon, primary, to } = props;
 
-  const renderLink = React.useMemo(
-    () =>
+  const renderLink = React.useMemo(() =>
       React.forwardRef<HTMLAnchorElement, Omit<RouterLinkProps, 'innerRef' | 'to'>>(
         (itemProps, ref) => (
           // With react-router-dom@^6.0.0 use `ref` instead of `innerRef`

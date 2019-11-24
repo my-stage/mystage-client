@@ -14,8 +14,12 @@ import Container from '@material-ui/core/Container';
 import MenuIcon from '@material-ui/icons/Menu';
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import NotificationsIcon from '@material-ui/icons/Notifications';
-import { mainListItems, secondaryListItems } from './listItems';
+import { mainListItems, secondaryListItems } from './routing/listItems';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
+import Home from './pages/Home';
+import Users from './pages/Users';
+import Shows from './pages/Shows';
+import Events from './pages/Events';
 
 const drawerWidth = 240;
 
@@ -130,13 +134,11 @@ export default function Dashboard() {
             </IconButton>
           </Toolbar>
         </AppBar>
-        <Drawer
-          variant="permanent"
+        <Drawer variant="permanent"
           classes={{
             paper: clsx(classes.drawerPaper, !open && classes.drawerPaperClose),
           }}
-          open={open}
-        >
+          open={open}>
           <div className={classes.toolbarIcon}>
             <IconButton onClick={handleDrawerClose}>
               <ChevronLeftIcon />
@@ -154,18 +156,10 @@ export default function Dashboard() {
               <Route path="/notimplemented">
                 <h1>Not Implemented!</h1>
               </Route>
-              <Route path="/users">
-                <h1>Users</h1>
-              </Route>
-              <Route path="/shows">
-                <h1>Shows</h1>
-              </Route>
-              <Route path="/events">
-                <h1>Events</h1>
-              </Route>
-              <Route path="/">
-                <h1>Home</h1>
-              </Route>
+              <Route exact path="/users" component={Users} />
+              <Route path="/shows" component={Shows} />
+              <Route path="/events" component={Events} />
+              <Route path="/" component={Home} />
             </Switch>
           </Container>
         </main>
