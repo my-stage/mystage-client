@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from 'react';
-import API from '../API';
+import Api from '../Api';
 
 function UsersMgmt() {
   const [users, setUsers] = useState([]);
 
   useEffect(() => {
-    API.getUsers().then(setUsers);
+    Api.getUsers().then(setUsers);
   }, []);
 
   return (

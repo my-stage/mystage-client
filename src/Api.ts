@@ -1,4 +1,4 @@
-var apiUrl = "https://mystage.ngschaider.at/api/v1/";
+const apiUrl = "https://mystage.ngschaider.at/api/v1/";
 
 async function otherRequest(method: string, data: object) {
   const response = await fetch(apiUrl, {
@@ -10,8 +10,8 @@ async function otherRequest(method: string, data: object) {
   });
   return await response.json();
 }
-async function getRequest(urlText: string, params?: object){
-  var url = new URL(urlText);
+async function getRequest(urlText: string, params?: object) {
+  const url = new URL(urlText);
   if(params) {
     //Object.keys(params).forEach(key => url.searchParams.append(key, params[key]));
   }
@@ -26,7 +26,7 @@ async function request(method: string, url: string, dataOrParams={}) {
   }
 }
 
-export default class API {
+export default class Api {
 
   static async getUsers() {
     const response = await request("GET", apiUrl + "records/users");
