@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Route, Switch } from 'react-router-dom';
 import clsx from 'clsx';
 import {
@@ -11,7 +11,9 @@ import {
   Divider,
   IconButton,
   Badge,
-  Container
+  Container,
+  Menu,
+  MenuItem
 } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 import {
@@ -106,55 +108,96 @@ const useStyles = makeStyles(theme => ({
 
 export default function MainLayout() {
   const classes = useStyles();
-  const [open, setOpen] = React.useState(true);
+  const [drawerOpen, setDrawerOpen] = useState(true);
+  const [accountMenuAnchorEl, setAccountMenuAnchorEl] = useState<null | HTMLElement>(null);
+  const [moreMenuAnchorEl, setMoreMenuAnchorEl] = useState<null | HTMLElement>(null);
+  const [notificationsCount, setNotificationsCount] = useState(0);
+
   const handleDrawerOpen = () => {
-    setOpen(true);
+    setDrawerOpen(true);
   };
   const handleDrawerClose = () => {
-    setOpen(false);
+    setDrawerOpen(false);
   };
+  const handleAccountClick = (event: React.MouseEvent<HTMLButtonElement>) => {
+    setAccountMenuAnchorEl(event.currentTarget);
+  }
+  const handleAccountMenuClose = () => {
+    setAccountMenuAnchorEl(null);
+  }
+  const handleMoreClick = (event: React.MouseEvent<HTMLButtonElement>) => {
+    setMoreMenuAnchorEl(event.currentTarget);
+  }
+  const handleMoreMenuClose = () => {
+    setMoreMenuAnchorEl(null);
+  }
+  const handleNotificationsClick = () => {
+    setNotificationsCount(notificationsCount + 1);
+  }
 
   return (
     <>
-      <AppBar position="absolute" className={clsx(classes.appBar, open && classes.appBarShift)}>
+      <AppBar position="absolute" className={clsx(classes.appBar, drawerOpen && classes.appBarShift)}>
         <Toolbar className={classes.toolbar}>
           <IconButton
             edge="start"
             color="inherit"
             aria-label="open drawer"
             onClick={handleDrawerOpen}
-            className={clsx(classes.menuButton, open && classes.menuButtonHidden)}
+            className={clsx(classes.menuButton, drawerOpen && classes.menuButtonHidden)}
           >
           <MenuIcon />
           </IconButton>
           <Typography component="h1" variant="h6" color="inherit" noWrap className={classes.title}>
             myStage
           </Typography>
-          <IconButton color="inherit">
+          <IconButton color="inherit" onClick={handleMoreClick}>
             <MoreVertIcon />
           </IconButton>
-          <IconButton color="inherit">
-            <Badge badgeContent={0} color="secondary">
+          <Menu
+            id="more-menu"
+            anchorEl={moreMenuAnchorEl}
+            keepMounted
+            open={Boolean(moreMenuAnchorEl)}
+            onClose={handleMoreMenuClose}
+          >
+            <MenuItem onClick={handleMoreMenuClose}>More I</MenuItem>
+            <MenuItem onClick={handleMoreMenuClose}>More II</MenuItem>
+            <MenuItem onClick={handleMoreMenuClose}>More III</MenuItem>
+            <MenuItem onClick={handleMoreMenuClose}>More IV</MenuItem>
+            <MenuItem onClick={handleMoreMenuClose}>More V</MenuItem>
+            <MenuItem onClick={handleMoreMenuClose}>More VI</MenuItem>
+            <MenuItem onClick={handleMoreMenuClose}>More VII</MenuItem>
+            <MenuItem onClick={handleMoreMenuClose}>More VIII</MenuItem>
+            <MenuItem onClick={handleMoreMenuClose}>More IX</MenuItem>
+            <MenuItem onClick={handleMoreMenuClose}>More X</MenuItem>
+          </Menu>
+          <IconButton color="inherit" onClick={handleNotificationsClick}>
+            <Badge badgeContent={notificationsCount} color="secondary">
               <NotificationsIcon />
             </Badge>
           </IconButton>
-          <IconButton
-              edge="end"
-              aria-label="account of current user"
-              // aria-controls={menuId}
-              aria-haspopup="true"
-              // onClick={handleProfileMenuOpen}
-              color="inherit"
-          >
+          <IconButton color="inherit" onClick={handleAccountClick}>
             <AccountIcon />
           </IconButton>
+          <Menu
+            id="account-menu"
+            anchorEl={accountMenuAnchorEl}
+            keepMounted
+            open={Boolean(accountMenuAnchorEl)}
+            onClose={handleAccountMenuClose}
+          >
+            <MenuItem onClick={handleAccountMenuClose}>Profile</MenuItem>
+            <MenuItem onClick={handleAccountMenuClose}>My account</MenuItem>
+            <MenuItem onClick={handleAccountMenuClose}>Logout</MenuItem>
+          </Menu>
         </Toolbar>
       </AppBar>
       <Drawer variant="permanent"
         classes={{
-          paper: clsx(classes.drawerPaper, !open && classes.drawerPaperClose),
+          paper: clsx(classes.drawerPaper, !drawerOpen && classes.drawerPaperClose),
         }}
-        open={open}>
+        open={drawerOpen}>
         <div className={classes.toolbarIcon}>
           <IconButton onClick={handleDrawerClose}>
             <ChevronLeftIcon />
