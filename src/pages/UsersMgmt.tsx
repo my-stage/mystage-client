@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Api, User } from '../api';
+import UserListItem from '../components/UserListItem';
 
 function UsersMgmt() {
   const [users, setUsers] = useState([]);
@@ -12,10 +13,7 @@ function UsersMgmt() {
     <>
       <h1>Users Management</h1>
       {users.map((user: User) => (
-        <>
-          <h2>{user.username}</h2>
-          <h2>{user.name}</h2>
-        </>
+        <UserListItem user={user} />
       ))}
     </>
   );
