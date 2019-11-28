@@ -13,6 +13,12 @@ const useStyles = makeStyles((theme: Theme) =>
       fontSize: theme.typography.pxToRem(15),
       fontWeight: theme.typography.fontWeightRegular,
     },
+    key: {
+      fontWeight: 700,
+    },
+    details: {
+      flexDirection: "column",
+    }
   }),
 );
 
@@ -28,11 +34,9 @@ function UserListItem({ user, ...props }: {user:User}) {
       >
         <Typography className={classes.heading}>{user.name} ({user.username})</Typography>
       </ExpansionPanelSummary>
-      <ExpansionPanelDetails>
-        <Typography>
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse malesuada lacus ex,
-          sit amet blandit leo lobortis eget.
-        </Typography>
+      <ExpansionPanelDetails className={classes.details}>
+          <span><span className={classes.key}>E-Mail: </span> {user.email}</span>
+          <span><span className={classes.key}>Sex: </span> {user.sex}</span>
       </ExpansionPanelDetails>
     </ExpansionPanel>
   );
