@@ -3,20 +3,13 @@ class User {
   name: string;
   username: string;
   email: string;
-  _sex: number;
+  sex: number;
 
-  get sex(): string {
-    return this._sex ? "männlich" : "weiblich";
-  }
-  set sex(strSex: string) {
-    this._sex = strSex === "männlich" ? 1 : 0;
-  }
-
-  constructor(dbUser: any) {
-    this.name = dbUser["name"];
-    this.username = dbUser["username"];
-    this.email = dbUser["email"];
-    this._sex = dbUser["sex"];
+  constructor(name: string, username: string, email: string, sex: number) {
+    this.name = name;
+    this.username = username;
+    this.email = email;
+    this.sex = sex;
   }
 
 }

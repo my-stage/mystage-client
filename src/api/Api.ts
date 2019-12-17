@@ -30,9 +30,9 @@ async function request(method: string, url: string, dataOrParams={}) {
 
 export default class Api {
 
-  static async getUsers() {
+  /*static async getUsers() {
     const response = await request("GET", apiUrl + "records/users");
     return response.records.map((user: any) => new User(user));
-  }
+  }*/
 
 }

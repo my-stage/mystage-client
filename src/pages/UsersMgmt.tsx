@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from 'react';
-import { Api, User } from '../api';
+import { MockApi as Api, User } from '../api';
 import UserListItem from '../components/UserListItem';
 
 function UsersMgmt() {
-  const [users, setUsers] = useState([]);
+  const [users, setUsers] = useState<User[]>([]);
 
   useEffect(() => {
     Api.getUsers().then(setUsers);
