@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { MockApi as Api, User } from '../api';
+import { MockupApi as Api, User } from '../api';
 import UserListItem from '../components/UserListItem';
 
 function UsersMgmt() {
