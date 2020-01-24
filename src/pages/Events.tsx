@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import {MockupApi as Api, Event, User} from '../api';
+import {Api, Event, User} from '../api';
 import EventListItem from "../components/EventListItem";
 
 function Events() {
@@ -7,7 +7,7 @@ function Events() {
   const [events, setEvents] = useState<Event[]>([]);
 
   useEffect(() => {
-    Api.getEvents().then(setEvents);
+    //Api.getEvents().then(setEvents);
   }, []);
 
 

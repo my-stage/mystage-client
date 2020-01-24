@@ -5,7 +5,9 @@ import ExpansionPanelSummary from '@material-ui/core/ExpansionPanelSummary';
 import ExpansionPanelDetails from '@material-ui/core/ExpansionPanelDetails';
 import Typography from '@material-ui/core/Typography';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
-import { User } from '../api';
+import Button from '@material-ui/core/Button';
+import { Link } from 'react-router-dom';
+import { Api, User } from '../api';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -22,7 +24,7 @@ const useStyles = makeStyles((theme: Theme) =>
   }),
 );
 
-function UserListItem({ user, ...props }: {user:User}) {
+function UserListItem({ user, onDelete, ...props }: {user: User, onDelete: (user: User) => void}) {
   const classes = useStyles();
 
   return (
@@ -37,6 +39,11 @@ function UserListItem({ user, ...props }: {user:User}) {
       <ExpansionPanelDetails className={classes.details}>
           <span><span className={classes.key}>E-Mail: </span> {user.email}</span>
           <span><span className={classes.key}>Sex: </span> {user.sex}</span>
+          <Button component={Link} to={"/mgmt/users/"+user.id} variant="contained" color="primary"
+          >Edit</Button>
+          <Button variant="contained" color="secondary"
+            onClick={() => { onDelete(user); }}
+          >Delete</Button>
       </ExpansionPanelDetails>
     </ExpansionPanel>
   );

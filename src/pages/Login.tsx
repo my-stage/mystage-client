@@ -4,6 +4,7 @@ import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import TextField from '@material-ui/core/TextField';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
+import FormLabel from '@material-ui/core/FormLabel';
 import Checkbox from '@material-ui/core/Checkbox';
 import Link from '@material-ui/core/Link';
 import Grid from '@material-ui/core/Grid';
@@ -12,6 +13,8 @@ import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
+import { UserContext } from '../contexts';
+import { Api, User } from '../api';
 
 function Copyright() {
   return (
@@ -54,27 +57,61 @@ const useStyles = makeStyles(theme => ({
 export default function Login() {
   const classes = useStyles();
 
+  const { user, setUser, token, setToken } = React.useContext(UserContext);
+
+  const [error, setError] = React.useState("");
+
+  const [username, setUsername] = React.useState("");
+  const [password, setPassword] = React.useState("");
+
+  const handlePasswordChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setPassword(event.currentTarget.value);
+  };
+
+  const handleUsernameChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setUsername(event.currentTarget.value);
+  };
+
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    User.TryLogin(username, password).then(res => {
+      if(res.status === 200) {
+        setError("");
+        setUser(res.data.user);
+        setToken(res.data.token);
+      } else if(res.status === 403) {
+        setError("Invalid Credentials");
+      } else {
+        setError("Unknown error occured.");
+      }
+    });
+  };
+
   return (
     <Container component="main" maxWidth="xs">
-      <CssBaseline />
       <div className={classes.paper}>
         <Avatar className={classes.avatar}>
           <LockOutlinedIcon />
         </Avatar>
         <Typography component="h1" variant="h5">
           Sign in
-        </Typography>
-        <form className={classes.form} noValidate>
+        </Typography><FormLabel
+          error={true}
+      >
+        {error}
+      </FormLabel>
+        <form className={classes.form} noValidate onSubmit={handleSubmit}>
           <TextField
             variant="outlined"
             margin="normal"
             required
             fullWidth
-            id="email"
-            label="Email Address"
-            name="email"
-            autoComplete="email"
+            id="username"
+            label="Username"
+            name="username"
+            autoComplete="username"
             autoFocus
+            onChange={handleUsernameChange}
           />
           <TextField
             variant="outlined"
@@ -86,6 +123,7 @@ export default function Login() {
             type="password"
             id="password"
             autoComplete="current-password"
+            onChange={handlePasswordChange}
           />
           <FormControlLabel
             control={<Checkbox value="remember" color="primary" />}

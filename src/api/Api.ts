@@ -1,38 +1,59 @@
-import User from './User'
+import User from './User';
 
-const apiUrl = "https://mystage.ngschaider.at/api/v1/";
+const apiUrl = "http://mystage-server/api/v1/";
 
-async function otherRequest(method: string, data: object) {
-  const response = await fetch(apiUrl, {
-    method: method,
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify(data),
-  });
-  return await response.json();
-}
-async function getRequest(urlText: string, params?: object) {
-  const url = new URL(urlText);
-  if(params) {
-    //Object.keys(params).forEach(key => url.searchParams.append(key, params[key]));
+async function createResponse(response: Response) {
+  const json = await response.text();
+
+  let data: any = {};
+  try {
+    data = JSON.parse(json);
+  } catch (ex) {
+    console.error(ex);
+    console.log("Error parsing JSON: " + json);
   }
-  const response = await fetch(url.toString());
-  return await response.json();
-}
-async function request(method: string, url: string, dataOrParams={}) {
-  if(method === "GET") {
-    return getRequest(url, dataOrParams);
-  } else {
-    return otherRequest(method, dataOrParams);
-  }
+
+  return data;
 }
 
 export default class Api {
 
-  /*static async getUsers() {
-    const response = await request("GET", apiUrl + "records/users");
-    return response.records.map((user: any) => new User(user));
-  }*/
+  static token: string;
+
+  static async logout() {
+    const response = await Api.request("POST", "logout", {}, {});
+    return response;
+  }
+
+  static async request(method: string, route: string, params: {[key:string]:string}, data: object) {
+    let url = new URL(apiUrl + route);
+
+    Object.keys(params).forEach(key => {
+        url.searchParams.append(key, params[key]);
+    });
+
+    if(Api.token) {
+      url.searchParams.append("token", Api.token);
+    }
+
+    let opts: {[key: string]: any} = {
+      method: method,
+    };
+
+    if(method !== "GET" && method !== "HEAD") {
+      opts["headers"] = {
+        "Content-Type": "application/json",
+      };
+      opts["body"] = JSON.stringify(data);
+    }
+
+    const response = await fetch(url.toString(), opts);
+
+    const result = await createResponse(response);
+    console.log(method + " " + url.toString() + " " + JSON.stringify(data));
+    console.log(result);
+    return result;
+  }
+
 
 }

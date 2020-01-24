@@ -30,6 +30,9 @@ import Events from './pages/Events';
 import UsersMgmt from './pages/UsersMgmt';
 import ShowsMgmt from './pages/ShowsMgmt';
 import EventsMgmt from './pages/EventsMgmt';
+import { UserContext } from './contexts';
+import { Api } from './api';
+import UserForm from "./forms/UserForm";
 
 const drawerWidth = 240;
 
@@ -113,6 +116,8 @@ export default function MainLayout() {
   const [moreMenuAnchorEl, setMoreMenuAnchorEl] = useState<null | HTMLElement>(null);
   const [notificationsCount, setNotificationsCount] = useState(0);
 
+  const { user, setUser, token, setToken } = React.useContext(UserContext);
+
   const handleDrawerOpen = () => {
     setDrawerOpen(true);
   };
@@ -134,6 +139,21 @@ export default function MainLayout() {
   const handleNotificationsClick = () => {
     setNotificationsCount(notificationsCount + 1);
   }
+  const handleLogout = () => {
+    handleAccountMenuClose();
+    Api.logout().then(res => {
+      if(res.status === 200) {
+        setUser(null);
+        setToken("");
+      }
+    });
+  };
+  const handleProfile = () => {
+    handleAccountMenuClose();
+  };
+  const handleMyAccount = () => {
+    handleAccountMenuClose();
+  };
 
   return (
     <>
@@ -180,6 +200,9 @@ export default function MainLayout() {
           <IconButton color="inherit" onClick={handleAccountClick}>
             <AccountIcon />
           </IconButton>
+          <Typography>
+            { user ? user.name : "" }
+          </Typography>
           <Menu
             id="account-menu"
             anchorEl={accountMenuAnchorEl}
@@ -187,9 +210,9 @@ export default function MainLayout() {
             open={Boolean(accountMenuAnchorEl)}
             onClose={handleAccountMenuClose}
           >
-            <MenuItem onClick={handleAccountMenuClose}>Profile</MenuItem>
-            <MenuItem onClick={handleAccountMenuClose}>My account</MenuItem>
-            <MenuItem onClick={handleAccountMenuClose}>Logout</MenuItem>
+            <MenuItem onClick={handleProfile}>Profile</MenuItem>
+            <MenuItem onClick={handleMyAccount}>My account</MenuItem>
+            <MenuItem onClick={handleLogout}>Logout</MenuItem>
           </Menu>
         </Toolbar>
       </AppBar>
@@ -221,6 +244,8 @@ export default function MainLayout() {
             <Route exact path="/mgmt/shows"><ShowsMgmt /></Route>
             <Route exact path="/mgmt/events"><EventsMgmt /></Route>
             <Route exact path="/mgmt/users"><UsersMgmt /></Route>
+            <Route exact path="/mgmt/users/:userId"><UserForm /></Route>
+            <Route exact path="/mgmt/users/create"><UserForm /></Route>
           </Switch>
         </Container>
       </main>
