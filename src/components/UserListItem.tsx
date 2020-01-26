@@ -38,7 +38,7 @@ function UserListItem({ user, onDelete, ...props }: {user: User, onDelete: (user
       </ExpansionPanelSummary>
       <ExpansionPanelDetails className={classes.details}>
           <span><span className={classes.key}>E-Mail: </span> {user.email}</span>
-          <span><span className={classes.key}>Sex: </span> {user.sex}</span>
+          <span><span className={classes.key}>Sex: </span> {user.sexStr}</span>
           <Button component={Link} to={"/mgmt/users/"+user.id} variant="contained" color="primary"
           >Edit</Button>
           <Button variant="contained" color="secondary"

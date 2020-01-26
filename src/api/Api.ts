@@ -1,7 +1,5 @@
 import User from './User';
 
-const apiUrl = "http://mystage-server/api/v1/";
-
 async function createResponse(response: Response) {
   const json = await response.text();
 
@@ -18,6 +16,7 @@ async function createResponse(response: Response) {
 
 export default class Api {
 
+  static apiUrl = "http://mystage-server/api/v1/";
   static token: string;
 
   static async logout() {
@@ -26,7 +25,7 @@ export default class Api {
   }
 
   static async request(method: string, route: string, params: {[key:string]:string}, data: object) {
-    let url = new URL(apiUrl + route);
+    let url = new URL(Api.apiUrl + route);
 
     Object.keys(params).forEach(key => {
         url.searchParams.append(key, params[key]);

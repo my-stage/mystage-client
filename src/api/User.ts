@@ -2,12 +2,24 @@ import Api from './Api';
 
 class User {
 
+  static SexNames = {0: "Undefiniert", 1: "Herr", 2: "Dame"};
+
   id: number = 1;
   name: string = "";
   username: string = "";
   password: string = ""; // empty when requested from server, filled with password when edit/create
   email: string = "";
   sex: number = 0;
+
+  get sexStr() : string {
+    if(this.sex == 1) {
+      return "Herr";
+    } else if(this.sex == 2) {
+      return "Dame";
+    } else {
+      return "Undefiniert";
+    }
+  }
 
   isNewModel: boolean = false;
 
